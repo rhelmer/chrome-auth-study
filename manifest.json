@@ -6,12 +6,20 @@
   "version": "0.3.1",
   "homepage_url": "https://github.com/rhelmer/chrome-auth-study",
   "permissions": [
-    "identity"
+    "identity",
+    "https://firebasestorage.googleapis.com"
   ],
   "background": {
     "scripts": [
       "dist/background.js"
     ]
+  },
+  "options_ui": {
+    "page": "public/index.html",
+    "open_in_tab": true
+  },
+  "browser_action": {
+    "browser_style": true
   },
   "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com https://auth.firebase.com https://apis.google.com; object-src 'self'"
 }

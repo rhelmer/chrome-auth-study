@@ -6,6 +6,7 @@ import "webextension-polyfill";
 
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/storage";
 
 import { Rally, runStates } from "@mozilla/rally";
 
@@ -26,30 +27,44 @@ firebase.initializeApp({
 
 console.debug("firebase init:", firebase);
 
-const provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-    const credential = result.credential;
+let port;
+chrome.runtime.onConnect.addListener(p => {
+  port = p;
+  p.onMessage.addListener(m => login(m));
+});
 
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-    console.debug("auth result:", result);
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    const credential = error.credential;
-    // ...
-    console.debug("auth error:", error);
-  });
+function _openControlPanel() {
+  chrome.runtime.openOptionsPage();
+}
+
+chrome.browserAction.onClicked.addListener(_openControlPanel);
+
+function login({ email, password }) {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      var user = userCredential.user;
+      console.debug("logged in as:", user.uid);
+
+      storageRef = firebase.storage().ref();
+      storageRef.child(`/users/${user.uid}/test.txt`).getDownloadURL()
+        .then(async (url) => {
+          console.debug("got download URL:", url);
+          let result = await fetch(url);
+          let text = await result.text();
+          console.debug('result:', text);
+          port.postMessage({ result: text });
+          port.postMessage({ error: "none!" });
+        });
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.debug("something went wrong:", errorCode, errorMessage);
+      port.postMessage({ result: ":(" });
+      port.postMessage({ error: errorMessage });
+    });
+}
 
 const rally = new Rally();
 rally.initialize(
