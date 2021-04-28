@@ -6,8 +6,7 @@
   "version": "0.3.1",
   "homepage_url": "https://github.com/rhelmer/chrome-auth-study",
   "permissions": [
-    "identity",
-    "https://firebasestorage.googleapis.com"
+    "identity"
   ],
   "background": {
     "scripts": [
