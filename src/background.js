@@ -54,7 +54,6 @@ function login({ email, password }) {
           let text = await result.text();
           console.debug('result:', text);
           port.postMessage({ result: text });
-          port.postMessage({ error: "none!" });
         });
     })
     .catch((error) => {
@@ -96,3 +95,5 @@ rally.initialize(
   // Do not start the study in this case. Something
   // went wrong.
 });
+
+_openControlPanel();
