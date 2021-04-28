@@ -11,13 +11,14 @@ port.onMessage.addListener(message => {
     }
 });
 
-document.getElementById("test-form").onsubmit = () => {
+document.getElementById("test-form").addEventListener("submit", e => {
+    e.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     port.postMessage({ email, password });
     document.getElementById("dialog").open = true;
-}
+});
 
 document.getElementById("google-sign-in").addEventListener("click", () => {
-    console.debug("click!");
+    port.postMessage({ "provider": "google" });
 });
