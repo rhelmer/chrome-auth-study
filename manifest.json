@@ -9,9 +9,7 @@
     "identity"
   ],
   "background": {
-    "scripts": [
-      "dist/background.js"
-    ]
+    "page": "src/background.html"
   },
   "options_ui": {
     "page": "public/index.html",
@@ -20,5 +18,5 @@
   "browser_action": {
     "browser_style": true
   },
-  "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com https://auth.firebase.com https://apis.google.com; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://www.gstatic.com https://cdn.firebase.com https://*.firebaseio.com https://auth.firebase.com https://apis.google.com; object-src 'self'"
 }
