@@ -4,10 +4,6 @@
 
 import "webextension-polyfill";
 
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/storage";
-
 import { Rally, runStates } from "@mozilla/rally";
 
 // Example: import a module.
@@ -30,7 +26,13 @@ console.debug("firebase init:", firebase);
 let port;
 chrome.runtime.onConnect.addListener(p => {
   port = p;
-  p.onMessage.addListener(m => login(m));
+  p.onMessage.addListener(message => {
+    if ("email" in message && "password" in message) {
+      login(message);
+    } else if ("provider" in message && message.provider === "google") {
+      googleSignIn();
+    }
+  });
 });
 
 function _openControlPanel() {
@@ -39,6 +41,33 @@ function _openControlPanel() {
 
 chrome.browserAction.onClicked.addListener(_openControlPanel);
 
+function googleSignIn() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth()
+    .signInWithPopup(provider)
+    .then(result => {
+      const credential = result.credential;
+      const token = credential.accessToken;
+      const user = result.user;
+      console.debug("auth result:", result);
+      
+      const storageRef = firebase.storage().ref();
+      console.debug("storageRef:", storageRef);
+      storageRef.child(`/users/${user.uid}/test.txt`).getDownloadURL()
+        .then(async (url) => {
+          console.debug("got download URL:", url);
+          let result = await fetch(url);
+          let text = await result.text();
+          console.debug('result:', text);
+          port.postMessage({ result: text });
+        });
+      port.postMessage({ result: text });
+    }).catch(error => {
+      console.debug("auth error:", error);
+      port.postMessage({ error: error.message });
+    });
+}
+
 function login({ email, password }) {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
@@ -46,7 +75,8 @@ function login({ email, password }) {
       var user = userCredential.user;
       console.debug("logged in as:", user.uid);
 
-      storageRef = firebase.storage().ref();
+      const storageRef = firebase.storage().ref();
+      console.debug("storageRef:", storageRef);
       storageRef.child(`/users/${user.uid}/test.txt`).getDownloadURL()
         .then(async (url) => {
           console.debug("got download URL:", url);

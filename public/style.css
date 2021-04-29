@@ -103,3 +103,12 @@ a {
         border-radius: 0px;
     }
 }
+
+#dialog {
+    background-color: #FFFFFF;
+    border: 1px solid;
+    width: 500px;
+    text-align: center;
+    margin-left: 29%;
+
+}

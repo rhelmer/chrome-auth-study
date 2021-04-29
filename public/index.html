@@ -2,29 +2,27 @@
 
 <head>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <title>Sign in</title>
 </head>
 
 <body>
-    <div class="main">
+    <div id="main" class="main">
         <p id="google-sign-in" class="sign" align="center"><a href="#"><img align="center" src="google-signin.png"></a>
         </p>
         <p class="sign" align="center">Or, log in with your Rally account:</p>
         <form id="test-form" class="form1">
             <input id="email" class="un" type="text" placeholder="Username">
             <input id="password" class="pass" type="password" placeholder="Password">
-            <input type="submit" class="submit" align="center"></input>
-            <p class="forgot" align="center"><a href="#">Forgot Password?</p>
+            <input type="submit" class="submit" align="center" value="Submit">
+            <p class="forgot" align="center"><a href="#">Forgot Password?</a></p>
         </form>
+    </div>
 
-
-        <dialog id="dialog" class="popup">
-            <p><span id="result"></span></p>
-            <p><span id="error"></span></p>
-        </dialog>
+    <div id="dialog" align="center">
+        <p><span id="result"></span></p>
+        <p><span id="error"></span></p>
+        <a href="#">Sign out</a>
     </div>
 
     <script src="options.js"></script>
