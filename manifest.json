@@ -18,5 +18,11 @@
   "browser_action": {
     "browser_style": true
   },
+  "oauth2": {
+    "client_id": "872283440703-68ot0ktt51v64uh8dai0sbkk8h6bf9ru.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  },
   "content_security_policy": "script-src 'self' https://www.gstatic.com https://cdn.firebase.com https://*.firebaseio.com https://auth.firebase.com https://apis.google.com; object-src 'self'"
 }
