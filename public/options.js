@@ -1,6 +1,7 @@
 const port = chrome.runtime.connect();
 port.onMessage.addListener(message => {
     console.debug(message);
+    document.getElementById("logins").style.display = "none";
     document.getElementById("error").textContent = "";
     document.getElementById("result").textContent = "";
 
@@ -8,7 +9,6 @@ port.onMessage.addListener(message => {
         document.getElementById("error").textContent = message.error;
     } else if ("result" in message) {
         document.getElementById("result").textContent = message.result;
-        document.getElementById("main").style.display = "none";
     }
 });
 
