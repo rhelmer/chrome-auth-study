@@ -30,7 +30,8 @@ is requesting authentication.
 
 There is an [open PR that goes over the problems](https://github.com/firebase/firebase-js-sdk/issues/4002), but the tl;dr is that Firefox is not supported by the SDK.
 
-We *might* be able to use `browser.identity` extension API from Firefox for Google provider, instead.
+We *should* be able to use `browser.identity` extension API from Firefox for Google provider, instead. This was mentioned by a Firebase user [in a comment on the
+issue above](https://github.com/firebase/firebase-js-sdk/issues/4002#issuecomment-757486599).
 
 Firebase password-based auth works OK within a Firefox extension.
 
@@ -46,8 +47,7 @@ Worked around by loading from background page:
 ## Phone-based auth from extensions
 https://cloud.google.com/identity-platform/docs/web/chrome-extension has the warning: "Warning: Using phone or multi-factor authentication from a Chrome extension is not supported."
 
-Not sure this is true anymore?
-We almost certainly don't want to use this option so that's probably fine.
+Not sure this is true anymore? We almost certainly don't want to use this option, so that's probably fine.
 
 ## General documentation issues
 Lots of chrome docs point to "chrome app" docs which apply to both extensions and apps, but "apps are obsolete" messages abound...
