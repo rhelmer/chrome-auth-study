@@ -1,76 +1,11 @@
-# Mozilla Rally study template.
-The purpose of this repository is to provide a starting point to build a Rally study. It contains:
+# Mozilla Rally Chrome Auth Study
+This is an experimental Rally study that uses authentication to return "givebacks" to the user. It is based on the [Rally Study Template](https://github.com/mozilla-rally/study-template/), and was written for the [Auth in studies & core add-on spike](https://github.com/mozilla-rally/rally-core-addon/issues/559).
 
-1. an example [`manifest.json`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json) file.
-2. an example background and content script in `src/`.
-3. a rollup config file that builds the files needed for the web extension using the source files in `src/` (the background & content scripts).
-4. an example integration test that launches a browser & installs the add-on.
-5. a `web-ext-config.js` file & an eslint configuration.
-
-## Getting started
-
-1. Fork this repository.
-2. Customize the [manifest.json](./manifest.json) file:
-  * change the `name`, `author`, and `description` properties;
-  * swap the value of `application.gecko.id` (e.g. `ion-basic-study@mozilla.org`) with the one provided you by the Rally team;
-3. Customize the [package.json](./package.json) file. At a bare minimum, change the `name`,`description`, `version`, `author`, `repository`, `bugs`, and `homepage` properties;
-4. Provide the encryption data to the `Rally` class constructor in the [src/background.js](./src/background.js) file:
-
-```js
-rally.initialize(
-  // A sample key id used for encrypting data.
-  "sample-invalid-key-id",
-  // A sample *valid* JWK object for the encryption.
-  {
-    "kty":"EC",
-    "crv":"P-256",
-    "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
-    "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
-    "kid":"Public key used in JWS spec Appendix A.3 example"
-  },
-  // ... other required arguments ...
-);
-```
-
-4. From the forked repository directory, install all the NPM dependencies:
-
-```bash
-fork-dir> npm install .
-```
-
-5. Test the customized study in Firefox and commit your changes: doing this right after the initial fork provides a nice and clean cutting point with the original repository, which will simplify future updates (if needed).
-
-## Building upon this template
-This template uses [rollup.js](https://rollupjs.org/) as a module bundler and NPM for dependency management. The [manifest.json](./manifest.json) file already includes a sample background scripts.
-
-Dependencies can be added using the [`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) command, using the appropriate `--save-dev` or `--save-prod` switch. This command will take care of automatically updating the [package.json](./package.json) file.
-
-New modules can be added in the `src/` directory. Modules need to expose the exported functions using the `module.exports` syntax. For example, a class can be exported as follows in a `MyClass.js` file:
-
-```js
-module.exports = class MyClass {
-  myFunc() {
-    console.log("Testing!");
-  }
-}
-```
-
-And then be imported in another file with `const MyClass = require("./MyClass.js");`.
-
-Plain functions can be exposed as follows in a `MyFuncs.js` file:
-
-```js
-module.exports = {
-  myTest() {
-    //... something!
-  },
-  otherFunc() {
-    // ... other function!
-  }
-};
-```
-
-And then be imported in another file with `const {myTest, otherFunc} = require("./MyFuncs.js");`.
+The goals for this spike:
+- [ x ] allow logging in through a Google or custom email + password providers.
+- [ x ] when a study is first installed, it auto-authenticates if the browser has authenticated into their Google account or if I have authenticated into the custom email + password.
+- [ ] 3. when you open your browser, the previously-installed study should be authenticated already.
+- [ x ] 4. figure out how much GCP / Firebase meets our needs around these requirements.
 
 ## Supported NPM commands
 The template comes with a set of pre-defined NPM commands (to run as `npm run <command>`) to help study authors:
