@@ -45,7 +45,7 @@ Worked around by loading from background page:
 ```
 
 ## Phone-based auth from extensions
-https://cloud.google.com/identity-platform/docs/web/chrome-extension has the warning: "Warning: Using phone or multi-factor authentication from a Chrome extension is not supported."
+https://cloud.google.com/identity-platform/docs/web/chrome-extension has the warning: "Warning: Using phone or [SMS] multi-factor authentication from a Chrome extension is not supported."
 
 Not sure this is true anymore? We almost certainly don't want to use this option, so that's probably fine.
 
