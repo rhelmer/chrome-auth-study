@@ -47,7 +47,7 @@ Worked around by loading from background page:
 ## Phone-based auth from extensions
 https://cloud.google.com/identity-platform/docs/web/chrome-extension has the warning: "Warning: Using phone or [SMS] multi-factor authentication from a Chrome extension is not supported."
 
-Not sure this is true anymore? We almost certainly don't want to use this option, so that's probably fine.
+Systems that depend on phone number assignment are [not very secure](https://www.zdnet.com/article/microsoft-urges-users-to-stop-using-phone-based-multi-factor-authentication/) so we almost certainly don't want to use these options anyway. Firebase also charges for these services.
 
 ## General documentation issues
 Lots of chrome docs point to "chrome app" docs which apply to both extensions and apps, but "apps are obsolete" messages abound...
