@@ -4,7 +4,7 @@ This is an experimental Rally study that uses authentication to return "giveback
 The goals for this spike:
 - [x] allow logging in through a Google or custom email + password providers.
 - [x] when a study is first installed, it auto-authenticates if the browser has authenticated into their Google account or if I have authenticated into the custom email + password.
-- [ ] 3. when you open your browser, the previously-installed study should be authenticated already.
+- [x] 3. when you open your browser, the previously-installed study should be authenticated already.
 - [x] 4. figure out how much GCP / Firebase meets our needs around these requirements.
 
 On (4), Firebase provides several services but in this case we're just using [Firebase Auth](https://firebase.google.com/docs/auth) to provide password-based and Google auth, and the Firebase SDK to integrate with it. Firebase Auth also supports various identity providers (Google, Twitter, Facebook, GitHub, etc.) as well as phone-based auth.
@@ -33,7 +33,7 @@ There is an [open PR that goes over the problems](https://github.com/firebase/fi
 We *should* be able to use `browser.identity` extension API from Firefox for Google provider, instead. This was mentioned by a Firebase user [in a comment on the
 issue above](https://github.com/firebase/firebase-js-sdk/issues/4002#issuecomment-757486599).
 
-Firebase password-based auth works OK within a Firefox extension.
+Firebase password-`based auth works OK within a Firefox extension.
 
 ## Firebase SDK rollup module issues
 Firebase throws errors and doesn't work properly when loading multiple modules after using rollup. "firebase is already loaded" is logged, and only one of storage or auth works at a time.
