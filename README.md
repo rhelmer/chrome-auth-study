@@ -4,8 +4,8 @@ This is an experimental Rally study that uses authentication to return "giveback
 The goals for this spike:
 - [x] allow logging in through a Google or custom email + password providers.
 - [x] when a study is first installed, it auto-authenticates if the browser has authenticated into their Google account or if I have authenticated into the custom email + password.
-- [x] 3. when you open your browser, the previously-installed study should be authenticated already.
-- [x] 4. figure out how much GCP / Firebase meets our needs around these requirements.
+- [x] when you open your browser, the previously-installed study should be authenticated already.
+- [x] figure out how much GCP / Firebase meets our needs around these requirements.
 
 On (4), Firebase provides several services but in this case we're just using [Firebase Auth](https://firebase.google.com/docs/auth) to provide password-based and Google auth, and the Firebase SDK to integrate with it. Firebase Auth also supports various identity providers (Google, Twitter, Facebook, GitHub, etc.) as well as phone-based auth.
 
@@ -45,9 +45,9 @@ Worked around by loading from background page:
 ```
 
 ## Phone-based auth from extensions
-https://cloud.google.com/identity-platform/docs/web/chrome-extension has the warning: "Warning: Using phone or multi-factor authentication from a Chrome extension is not supported."
+https://cloud.google.com/identity-platform/docs/web/chrome-extension has the warning: "Warning: Using phone or [SMS] multi-factor authentication from a Chrome extension is not supported."
 
-Not sure this is true anymore? We almost certainly don't want to use this option, so that's probably fine.
+Systems that depend on phone number assignment are [not very secure](https://www.zdnet.com/article/microsoft-urges-users-to-stop-using-phone-based-multi-factor-authentication/) so we almost certainly don't want to use these options anyway. Firebase also charges for these services.
 
 ## General documentation issues
 Lots of chrome docs point to "chrome app" docs which apply to both extensions and apps, but "apps are obsolete" messages abound...
